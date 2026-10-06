@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивный генератор МАК-сессий с ИИ (Полная колода)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .step {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+        .card-option {
+            border: 3px solid transparent;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #eee;
+            text-align: center;
+        }
+        .card-option img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            display: block;
+        }
+        .card-option.selected {
+            border-color: #27ae60;
+            box-shadow: 0 0 10px rgba(39, 174, 96, 0.5);
+        }
+        button {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #219653;
+        }
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 13px;
+        }
+        .hidden {
+            display: none;
+        }
+        .ai-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .ai-links a {
+            background: #2980b9;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .ai-links a:hover {
+            background: #1f618d;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Интерактивный конструктор МАК-сессий с ИИ</h1>
+    <p>Полная колода из 20 карт-минералов загружена. Выберите карту, введите запрос и получите готовый скрипт для работы с искусственным интеллектом.</p>
+
+    <!-- Шаг 1: Выбор карты -->
+    <div class="step">
+        <h2>Шаг 1. Выберите карту из колоды (1–20)</h2>
+        <div class="cards-grid" id="cardsContainer">
+            <!-- Карты 1-10 -->
+            <div class="card-option" onclick="selectCard('Минерал 1: Врезка с портретом в старинном стиле', '1.jpg')"><img src="1.jpg" alt="1"><p style="font-size: 11px; margin: 3px;">Карта 1</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 2: Женский силуэт в изумрудном платье на фоне золотого свечения', '2.jpg')"><img src="2.jpg" alt="2"><p style="font-size: 11px; margin: 3px;">Карта 2</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 3: Глубокий синий минерал с узором и профилем лица', '3.jpg')"><img src="3.jpg" alt="3"><p style="font-size: 11px; margin: 3px;">Карта 3</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 4: Темный кристалл с женским портретом внутри', '4.jpg')"><img src="4.jpg" alt="4"><p style="font-size: 11px; margin: 3px;">Карта 4</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 5: Текстурный темный камень с ликом', '5.jpg')"><img src="5.jpg" alt="5"><p style="font-size: 11px; margin: 3px;">Карта 5</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 6: Фиолетовый кристалл с мужским профилем и плетеными структурами', '6.jpg')"><img src="6.jpg" alt="6"><p style="font-size: 11px; margin: 3px;">Карта 6</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 7: Бирюзовый минерал с комплексными фигурами и силуэтами', '7.jpg')"><img src="7.jpg" alt="7"><p style="font-size: 11px; margin: 3px;">Карта 7</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 8: Бордовый кристалл, внутри которого две фигуры тянутся друг к другу', '8.jpg')"><img src="8.jpg" alt="8"><p style="font-size: 11px; margin: 3px;">Карта 8</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 9: Светло-фиолетовый минерал с профилем мужчины в зеленом одеянии', '9.jpg')"><img src="9.jpg" alt="9"><p style="font-size: 11px; margin: 3px;">Карта 9</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 10: Темный блестящий монолит с фиолетовыми вкраплениями и профилем', '10.jpg')"><img src="10.jpg" alt="10"><p style="font-size: 11px; margin: 3px;">Карта 10</p></div>
+            
+            <!-- Карты 11-20 -->
+            <div class="card-option" onclick="selectCard('Минерал 11: Зеленый минерал со старческим мудрым профилем', '11.jpg')"><img src="11.jpg" alt="11"><p style="font-size: 11px; margin: 3px;">Карта 11</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 12: Зеленый срез камня с коричневой коркой и профилем женщины', '12.jpg')"><img src="12.jpg" alt="12"><p style="font-size: 11px; margin: 3px;">Карта 12</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 13: Красный камень-руда с вырезом и ярким женским профилем', '13.jpg')"><img src="13.jpg" alt="13"><p style="font-size: 11px; margin: 3px;">Карта 13</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 14: Золотистый янтарь со светящимися внутренними переливами и профилем', '14.jpg')"><img src="14.jpg" alt="14"><p style="font-size: 11px; margin: 3px;">Карта 14</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 15: Глубокий синий кристалл с женским лицом в космическом свечении', '15.jpg')"><img src="15.jpg" alt="15"><p style="font-size: 11px; margin: 3px;">Карта 15</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 16: Фиолетовый кристалл с текстурой полос и портретом девушки', '16.jpg')"><img src="16.jpg" alt="16"><p style="font-size: 11px; margin: 3px;">Карта 16</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 17: Синий лазурит с прожилками и мужским профилем', '17.jpg')"><img src="17.jpg" alt="17"><p style="font-size: 11px; margin: 3px;">Карта 17</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 18: Изумрудный малахитовый кристалл с рельефным профилем', '18.jpg')"><img src="18.jpg" alt="18"><p style="font-size: 11px; margin: 3px;">Карта 18</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 19: Темный потрескавшийся камень, раскрывающий женский образ в бордовом', '19.jpg')"><img src="19.jpg" alt="19"><p style="font-size: 11px; margin: 3px;">Карта 19</p></div>
+            <div class="card-option" onclick="selectCard('Минерал 20: Светло-зеленый кристалл с мягкими волнами и женским ликом', '20.jpg')"><img src="20.jpg" alt="20"><p style="font-size: 11px; margin: 3px;">Карта 20</p></div>
+        </div>
+        <p id="selectedCardText" style="font-style: italic; color: #555;">Карта не выбрана</p>
+    </div>
+
+    <!-- Шаг 2: Ввод запроса -->
+    <div class="step">
+        <h2>Шаг 2. Введите ваш запрос</h2>
+        <label for="userQuery">С каким запросом вы идете на сессию?</label>
+        <textarea id="userQuery" rows="3" placeholder="Например: Хочу разобраться в своих текущих приоритетах и найти внутреннюю опору..."></textarea>
+    </div>
+
+    <!-- Шаг 3: Генерация скрипта -->
+    <div class="step">
+        <button onclick="generatePrompt()">Сгенерировать скрипт для ИИ</button>
+    </div>
+
+    <!-- Результат -->
+    <div class="step hidden" id="resultStep">
+        <h2>Шаг 3. Готовый скрипт для ИИ</h2>
+        <p>Скопируйте этот текст и отправьте его вместе с изображением выбранной карты в любую из поддерживающих картинки нейросетей ниже:</p>
+        <pre id="outputPrompt"></pre>
+        <button style="margin-top: 10px; background-color: #34495e;" onclick="copyToClipboard()">Скопировать в буфер обмена</button>
+        
+        <h3 style="margin-top: 25px;">Выберите удобную платформу для проведения сессии:</h3>
+        <p style="font-size: 14px; color: #666;">Нажмите на любую ссылку, чтобы открыть сервис в новой вкладке, вставьте скопированный текст и прикрепите файл выбранной карты:</p>
+        <div class="ai-links">
+            <a href="https://gemini.google.com" target="_blank">Google Gemini</a>
+            <a href="https://chatgpt.com" target="_blank">ChatGPT</a>
+            <a href="https://claude.ai" target="_blank">Claude</a>
+            <a href="https://chat.deepseek.com" target="_blank">DeepSeek</a>
+            <a href="https://ya.ru" target="_blank">YandexGPT (Алиса)</a>
+        </div>
+    </div>
+
+    <script>
+        let selectedCardName = "";
+        let selectedImageUrl = "";
+
+        function selectCard(cardName, imageUrl) {
+            selectedCardName = cardName;
+            selectedImageUrl = imageUrl;
+            document.querySelectorAll('.card-option').forEach(el => el.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            document.getElementById('selectedCardText').innerText = "Выбрана карта: " + cardName;
+        }
+
+        function generatePrompt() {
+            const query = document.getElementById('userQuery').value.trim();
+
+            if (!selectedCardName) {
+                alert("Пожалуйста, выберите карту!");
+                return;
+            }
+            if (!query) {
+                alert("Пожалуйста, введите ваш запрос!");
+                return;
+            }
+
+            const fullImageUrl = new URL(selectedImageUrl, window.location.href).href;
+
+            const promptText = `Привет! Мы начинаем психологическую сессию с использованием метода метафорических ассоциативных карт (МАК) и минералов. 
+Ты — бережный, эмпатичный и профессиональный психолог. Я — твой клиент.
+
+1. Мой запрос: «${query}»
+2. Выбранная мной метафорическая карта (образ минерала): ${selectedCardName}.
+3. Ссылка на изображение выбранной карты для анализа: ${fullImageUrl}
+
+Правила проведения сессии:
+- Веди со мной диалог последовательно, задавая по одному глубокому открытому вопросу за раз.
+- Помогай мне исследовать образ выбранного минерала, находить скрытые метафоры, внутренние барьеры и ресурсы.
+- Не спеши давать готовые советы, дай мне возможность прийти к инсайтам самостоятельно.
+- После завершения нашей работы (когда мы найдем решение или ресурс) по моему запросу ты сформируешь итоговый структурированный протокол сессии.
+
+Начнем сессию. Приветствуй меня и задай первый вопрос по образу выбранной карты в контексте моего запроса.`;
+
+            document.getElementById('outputPrompt').innerText = promptText;
+            document.getElementById('resultStep').classList.remove('hidden');
+            document.getElementById('resultStep').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('outputPrompt').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Скрипт скопирован в буфер обмена!");
+            });
+        }
+    </script>
+</body>
+</html>
